@@ -55,24 +55,25 @@
 
 # Basic commands of Spring-boot
 
-1. Ways to create app 1.1 Using spring initializer: https://start.spring.io/
-   1.2 Using Command line:
-   mvn archetype:generate -DgroupId={project-packaging} -DartifactId={project-name}
-   -DarchetypeArtifactId={maven-template} -DinteractiveMode=false mvn archetype:generate -DgroupId=com.java.features
-   -DartifactId=java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+1. Ways to create app 
+   1. Using spring initializer: https://start.spring.io/
+   2. Using Command line: 
+       mvn archetype:generate -DgroupId={project-packaging} -DartifactId={project-name}
+      -DarchetypeArtifactId={maven-template} -DinteractiveMode=false mvn archetype:generate -DgroupId=com.java.features
+      -DartifactId=java-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+   3. With IDE File-> new-> project-> Maven -> Select-ArchType-quickstart-> add grpId/ArtifactId
 
-   1.3 With IDE File-> new-> project-> Maven -> Select-ArchType-quickstart-> add grpId/ArtifactId
+2. Packaging/Build steps:
+   1. Compile the project and generate target folder:  mvn compile
+   2. Build the maven project and installs it into local maven repository: mvn clean install
+   3. Optional Skip tests: mvn clean install -Dmaven.test.skip=true package
+   
+3. While executing the project, You cannot execute the maven project with Exec plugin without the compile step. 
+Since this step checks the target directory for the classes to call.
+             mvn exec:java -Dexec.mainClass=com.mycompany.App
+4. Run test Or run single test
+             mvn test Or mvn test -Dtest=com.mycompany.AppTest#testMethod
 
-    1. Packaging/Build steps:
-       # compile the project and generate target folder
-       mvn compile
-       # build the maven project and installs it into local maven repository
-       mvn clean install
-       # Skip tests
-       mvn clean install -Dmaven.test.skip=true package
-       # execute the project Note: You cannot execute the maven project with Exec plugin without the compile step. Since this step checks the target directory for the classes to call.
-       mvn exec:java -Dexec.mainClass=com.mycompany.App
-       # Run test Or run single test
-       mvn test Or mvn test -Dtest=com.mycompany.AppTest#testMethod
-
-2. Ways to run app  : java -jar {jar path} 
+5. Ways to run app  : 
+   1. With embedded tomcat: via IDE or EC2 instance "java -jar {jar path}"
+   2. With external server like jBoss, WLP etc: Package to war/jar, exclude embedded tomcat, copy war/jar to external container
